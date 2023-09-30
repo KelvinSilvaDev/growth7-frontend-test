@@ -1,6 +1,6 @@
 // jobUtils.ts
 
-import { Job } from "../types/jobUtils";
+import { Job } from "../types/Job";
 
 export function distributeJobs(jobs: Job[]): Job[][] {
   // Ordena os jobs pela data máxima de conclusão e converte o tempo estimado para minutos

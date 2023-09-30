@@ -1,4 +1,4 @@
-import {Job} from "./jobUtils";
+import {Job} from "./Job";
 
 type JobResultsProps = {
     jobSets: Job[][];

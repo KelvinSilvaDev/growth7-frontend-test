@@ -3,8 +3,8 @@ import './App.css';
 
 import FileUpload from './components/FileUpload';
 import JobResults from './components/JobResults';
-import { distributeJobs } from './utils/jobs';
-import { Job } from './types/jobUtils';
+import { distributeJobs } from './utils/jobUtils';
+import { Job } from './types/Job';
 
 
 function App() {
