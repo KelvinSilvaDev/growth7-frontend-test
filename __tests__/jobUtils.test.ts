@@ -22,52 +22,6 @@ test('distributeJobs divides jobs correctly', () => {
     }
   ];
 
-  // const expectedJobSets = [
-  //   [
-  //     {
-  //       "ID": 5,
-  //       "Descrição": "Gerar QRCode",
-  //       "Data Máxima de conclusão": "2020-02-15 12:00:00",
-  //       "Tempo estimado": "6 horas"
-  //     },
-  //     {
-  //       "ID": 6,
-  //       "Descrição": "Importação de dados de integração",
-  //       "Data Máxima de conclusão": "2020-02-15 12:00:00",
-  //       "Tempo estimado": "8 horas"
-  //     }
-  //   ],
-  //   [
-  //     {
-  //       "ID": 3,
-  //       "Descrição": "Importação de dados",
-  //       "Data Máxima de conclusão": "2021-02-02 12:00:00",
-  //       "Tempo estimado": "6 horas"
-  //     },
-  //     {
-  //       "ID": 4,
-  //       "Descrição": "Desenvolver historia 745",
-  //       "Data Máxima de conclusão": "2021-02-02 12:00:00",
-  //       "Tempo estimado": "2 horas"
-  //     }
-  //   ],
-  //   [
-  //     {
-  //       "ID": 1,
-  //       "Descrição": "Importação de arquivos de fundos",
-  //       "Data Máxima de conclusão": "2021-02-04 12:00:00",
-  //       "Tempo estimado": "8 horas"
-  //     },
-  //     {
-  //       "ID": 2,
-  //       "Descrição": "Importação de dados da Base Legada",
-  //       "Data Máxima de conclusão": "2021-02-04 12:00:00",
-  //       "Tempo estimado": "4 horas"
-  //     }
-  //   ]
-  // ];
-  
-
   const jobSets = distributeJobs(jobs);
 
   // Teste 1: Verificar se jobSets é uma matriz
@@ -87,5 +41,33 @@ test('distributeJobs divides jobs correctly', () => {
       return total + parseInt(job['Tempo estimado'], 10);
     }, 0);
     expect(totalEstimation).toBeLessThanOrEqual(8);
+  });
+
+  // Teste 5: Verificar se cada conjunto contém jobs a serem executados em sequência
+  jobSets.forEach((jobSet) => {
+    for (let i = 1; i < jobSet.length; i++) {
+      const date1 = new Date(jobSet[i - 1]['Data Máxima de conclusão']).getTime();
+      const date2 = new Date(jobSet[i]['Data Máxima de conclusão']).getTime();
+      expect(date1).toBeLessThanOrEqual(date2);
+    }
+  });
+
+  // Teste 6: Verificar se a data máxima de conclusão de cada job é respeitada
+  const maxDate = new Date('2023-10-01 16:00:00').getTime();
+  jobSets.forEach((jobSet) => {
+    jobSet.forEach((job) => {
+      const jobDate = new Date(job['Data Máxima de conclusão']).getTime();
+      expect(jobDate).toBeLessThanOrEqual(maxDate);
+    });
+  });
+
+  // Teste 7: Verificar se a data máxima de conclusão de cada job está dentro da janela de execução
+  const minDate = new Date('2023-10-01 12:00:00').getTime();
+  jobSets.forEach((jobSet) => {
+    jobSet.forEach((job) => {
+      const jobDate = new Date(job['Data Máxima de conclusão']).getTime();
+      expect(jobDate).toBeGreaterThanOrEqual(minDate);
+      expect(jobDate).toBeLessThanOrEqual(maxDate);
+    });
   });
 });

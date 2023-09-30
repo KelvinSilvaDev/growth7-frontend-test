@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 import FileUpload from './components/FileUpload';
@@ -7,7 +7,7 @@ import { distributeJobs } from './utils/jobUtils';
 import { Job } from './types/Job';
 
 
-function App() {
+export default function App() {
   const [jobSets, setJobSets] = useState<Array<Array<Job>>>([]);
 
   const processJsonFile = (file: File) => {
@@ -37,4 +37,4 @@ function App() {
   );
 }
 
-export default App;
+
