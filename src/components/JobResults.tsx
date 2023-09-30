@@ -1,16 +1,8 @@
-import React from 'react';
+import JobResultsProps from '../types/JobResults';
 
-type Job = {
-  ID: number;
-  Descrição: string;
-  'Data Máxima de conclusão': string;
-};
-
-type JobResultsProps = {
-  jobSets: Job[][];
-};
 
 function JobResults({ jobSets }: JobResultsProps) {
+  console.log("jobSets recebido:", jobSets); 
   return (
     <div>
       {jobSets.map((jobSet, index) => (
