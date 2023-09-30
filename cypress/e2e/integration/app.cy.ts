@@ -9,17 +9,12 @@ describe('My App', () => {
 
   it('should upload a JSON file', () => {
     cy.visit('http://localhost:5173'); 
-    cy.fixture('example.json').then((fileContent) => {
-      const blob = new Blob([JSON.stringify(fileContent)], { type: 'application/json' });
-      const fileName = 'example.json';
-  
+    cy.fixture('teste.json').then((fileContent) => {
       cy.get('input[type="file"]').attachFile({
-        fileContent: blob,
-        fileName: fileName,
+        fileContent,
+        fileName: 'teste.json',
         mimeType: 'application/json',
       });
-  
-      
     });
   });
   
