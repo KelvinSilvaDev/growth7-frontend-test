@@ -2,7 +2,7 @@ import JobResultsProps from '../types/JobResults';
 
 
 function JobResults({ jobSets }: JobResultsProps) {
-  console.log("jobSets recebido:", jobSets); 
+  console.log("jobSets recebido:", jobSets);
   return (
     <div>
       {jobSets.map((jobSet, index) => (
@@ -11,7 +11,18 @@ function JobResults({ jobSets }: JobResultsProps) {
           <ul>
             {jobSet.map((job) => (
               <li key={job.ID}>
-                {job.Descrição} - Data Máxima de conclusão: {job['Data Máxima de conclusão']}
+                <p>
+                  ID: {job.ID}
+                </p>
+                <p>
+                  Descrição: {job.Descrição}
+                </p>
+                <p>
+                  Data Máxima de conclusão: {job['Data Máxima de conclusão']}
+                </p>
+                <p>
+                  Tempo estimado: {job['Tempo estimado']}
+                </p>
               </li>
             ))}
           </ul>
