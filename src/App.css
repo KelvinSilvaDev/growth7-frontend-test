@@ -9,6 +9,18 @@
   color: white !important;
 }
 
+.cell {
+  width: 30%  !important;
+  max-width: 180px !important;
+  box-sizing: border-box !important;
+}
+
+.group-label {
+  font-size: 1.5em !important;
+  font-weight: bold !important;
+  margin-bottom: 1em !important;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
