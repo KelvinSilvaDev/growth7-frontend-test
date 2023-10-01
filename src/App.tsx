@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import './App.css';
 
 import FileUpload from './components/FileUpload';
-import JobResults from './components/JobResults';
 import { distributeJobs } from './utils/jobUtils';
 import { Job } from './types/Job';
+import JobList from './components/JobLists';
 
 
 export default function App() {
-  const [jobSets, setJobSets] = useState<Array<Array<Job>>>([]);
+  const [jobSets, setJobSets] = useState<any>([]); // Defina o estado inicial como uma matriz vazia de matrizes de Job
+
+
 
   const processJsonFile = (file: File) => {
     const reader = new FileReader();
@@ -24,15 +27,17 @@ export default function App() {
     };
     reader.readAsText(file);
   };
-  
 
-  // Função dividirJobs permanece a mesma
+
+
 
   return (
     <div className="App">
       <h1>Divisão de Jobs</h1>
       <FileUpload onFileUpload={processJsonFile} />
-      <JobResults jobSets={jobSets} />
+      {/* <JobResults jobSets={jobSets} /> */}
+      {jobSets.length > 0 && <JobList jobs={jobSets} />}
+
     </div>
   );
 }
